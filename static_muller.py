@@ -10,7 +10,6 @@ def manager(dim,sz):
     start = times();
     while colcnt+sz-1 < dim:
         for k in range(1,sz):
-            print(f'send row {colcnt+k-1} to dest {k}')
             COMM.send(colcnt+k-1, dest=k)
         for k in range(1,sz):
             mat[colcnt+k-1,:] = COMM.recv(source=k)
@@ -28,12 +27,13 @@ def manager(dim,sz):
     print(mat)
 
 def worker(dim,left,dz,roots,cff):
-    from random import random
+    from random import random,seed
     row = np.zeros((1, dim), dtype=int)
     while 1:
         j = COMM.recv(source=0)
         if j == -1:
             break
+        seed(j)
         for i in range(dim):
             z0 = complex(left + i*dz, left + j*dz)
             if(rank(roots, z0, tol=0.01) != -1):
@@ -43,7 +43,7 @@ def worker(dim,left,dz,roots,cff):
                 z2 = z0 + 1.0e-4*complex(random(), random())
                 result = muller(cff, z0, z1, z2, verbose=False)
                 row[0,i] = rank(roots, result[0])
-    COMM.send(row, dest=0)
+        COMM.send(row, dest=0)
 
 def muller(f, x0, x1, x2, dxtol=1.0e-8, fxtol=1.0e-8, N=10, verbose=True):
     if verbose:
