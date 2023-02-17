@@ -12,12 +12,12 @@ def manager(dim,sz):
         for k in range(1,sz):
             COMM.send(colcnt+k-1, dest=k)
         for k in range(1,sz):
-            mat[colcnt+k-1,:] = COMM.recv(colcnt+k-1, dest=k)
+            mat[colcnt+k-1,:] = COMM.recv(source=k)
         colcnt = colcnt+sz-1
     for k in range(1,dim-colcnt):
         COMM.send(colcnt+k-1, dest=k)
     for k in range(1,dim-colcnt):
-        mat[colcnt+k-1,:] = COMM.recv(colcnt+k-1, dest=k)
+        mat[colcnt+k-1,:] = COMM.recv(source=k)
     for k in range(1,sz):
         COMM.send(-1, dest=k)
     stop = times();
