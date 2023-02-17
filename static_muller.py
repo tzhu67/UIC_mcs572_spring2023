@@ -103,7 +103,7 @@ def main():
     roots = [complex(1), complex(sq2, sq2), complex(0, 1), \
              complex(-sq2, sq2), complex(-1), complex(-sq2, -sq2), \
              complex(0, -1), complex(sq2, -sq2)]
-    dim = 501
+    dim = 11
     (left, right) = (-1.1, +1.1)
     dz = (right - left)/(dim-1)
     if rk > 0:
