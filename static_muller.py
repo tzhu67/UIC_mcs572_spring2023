@@ -40,7 +40,7 @@ def worker(dim,left,dz,roots,cff):
             else:
                 z1 = z0 + 1.0e-4*complex(random(), random())
                 z2 = z0 + 1.0e-4*complex(random(), random())
-                result = muller(cff, z0, z1, z2, verbose=False)
+                result = muller(cff, z0, z1, z2, verbose=True)
                 row[0,i] = rank(roots, result[0])
     COMM.send(row, dest=0)
 
