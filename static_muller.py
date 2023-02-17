@@ -36,12 +36,12 @@ def worker(dim,left,dz,roots,cff):
         for i in range(dim):
             z0 = complex(left + i*dz, left + j*dz)
             if(rank(roots, z0, tol=0.01) != -1):
-                mat[i] = len(roots)
+                row[0,i] = len(roots)
             else:
                 z1 = z0 + 1.0e-4*complex(random(), random())
                 z2 = z0 + 1.0e-4*complex(random(), random())
-                result = muller(cff, z0, z1, z2, verbose=True)
-                row[i] = rank(roots, result[0])
+                result = muller(cff, z0, z1, z2, verbose=False)
+                row[0,i] = rank(roots, result[0])
     COMM.send(row, dest=0)
 
 def muller(f, x0, x1, x2, dxtol=1.0e-8, fxtol=1.0e-8, N=10, verbose=True):
