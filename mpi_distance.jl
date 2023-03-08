@@ -10,7 +10,7 @@ comm = MPI.COMM_WORLD
 myid = MPI.Comm_rank(comm)
 p = MPI.Comm_size(comm)
 
-n = 16
+n = 1000
 dn = n/(p-1)
 dt = 2*pi/n
 
