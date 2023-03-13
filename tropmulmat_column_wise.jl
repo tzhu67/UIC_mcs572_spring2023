@@ -34,10 +34,10 @@ function main()
     n = parse(Int, ARGS[3])
     N = parse(Int, ARGS[4])
     for i = 1:N
-        A = random_ternary_matrix(3, 5)
+        A = random_ternary_matrix(l, m)
         # println("The matrix A :")
         # show(stdout, "text/plain", A); println("");
-        B = random_ternary_matrix(4, 5)
+        B = random_ternary_matrix(m, n)
         # println("The matrix B :")
         # show(stdout, "text/plain", transpose(B)); println("");
         C = tropical_matrix_multiply(A, B)
